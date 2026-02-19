@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSFR Bank — Apartment Division</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07080f;
+  --surface: #0d0f1c;
+  --panel: #111425;
+  --border: #1e2238;
+  --border-bright: #2e3560;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-dim: rgba(201,168,76,0.15);
+  --accent: #3d6fff;
+  --accent-dim: rgba(61,111,255,0.12);
+  --green: #00d68f;
+  --green-dim: rgba(0,214,143,0.12);
+  --red: #ff4d6d;
+  --red-dim: rgba(255,77,109,0.12);
+  --text: #eef0f8;
+  --muted: #5a6080;
+  --muted-bright: #8892b0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Ambient background */
+body::before {
+  content: '';
+  position: fixed;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 900px; height: 600px;
+  background: radial-gradient(ellipse, rgba(61,111,255,0.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(ellipse, rgba(201,168,76,0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── HEADER ── */
+header {
+  position: relative;
+  z-index: 10;
+  border-bottom: 1px solid var(--border);
+  background: rgba(7,8,15,0.8);
+  backdrop-filter: blur(20px);
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: #07080f;
+}
+
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.logo-sub {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: block;
+}
+
+.header-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green-dim);
+  border: 1px solid rgba(0,214,143,0.2);
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--green);
+  letter-spacing: 0.5px;
+}
+
+.header-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--green);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ── MAIN LAYOUT ── */
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 60px 24px 100px;
+}
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  margin-bottom: 64px;
+  animation: fadeDown 0.7s cubic-bezier(.22,1,.36,1) both;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  content: '';
+  width: 24px; height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.hero-desc {
+  font-size: 15px;
+  color: var(--muted-bright);
+  max-width: 440px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+  margin: 48px 0;
+}
+
+/* ── LOOKUP SECTION ── */
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.lookup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+  animation: fadeUp 0.6s 0.1s cubic-bezier(.22,1,.36,1) both;
+}
+
+@media (max-width: 560px) {
+  .lookup-grid { grid-template-columns: 1fr; }
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted-bright);
+}
+
+.field-input {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 14px 18px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+.field-input::placeholder { color: var(--muted); }
+
+.field-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(61,111,255,0.1);
+}
+
+.lookup-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  border: none;
+  border-radius: 10px;
+  color: #07080f;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 15px 28px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s, box-shadow 0.2s;
+  margin-top: 4px;
+  box-shadow: 0 4px 24px rgba(201,168,76,0.2);
+  animation: fadeUp 0.6s 0.15s cubic-bezier(.22,1,.36,1) both;
+}
+
+.lookup-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(201,168,76,0.3);
+}
+.lookup-btn:active { transform: translateY(0); }
+
+.error-box {
+  display: none;
+  background: var(--red-dim);
+  border: 1px solid rgba(255,77,109,0.3);
+  border-radius: 10px;
+  color: #ff8fa3;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 12px 18px;
+  margin-top: 14px;
+  text-align: center;
+}
+
+/* ── RESULT ── */
+#resultSection {
+  display: none;
+  margin-top: 48px;
+  animation: fadeUp 0.5s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* The visual card */
+.visa-card {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto 32px;
+  aspect-ratio: 1.586/1;
+  background: linear-gradient(135deg, #111832 0%, #1a1f3d 40%, #0d1526 100%);
+  border-radius: 20px;
+  padding: 32px 36px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.7),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.visa-card::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+}
+
+.visa-card::after {
+  content: '';
+  position: absolute;
+  bottom: -120px; left: -40px;
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(61,111,255,0.08) 0%, transparent 70%);
+}
+
+.vc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: auto;
+  position: relative; z-index: 1;
+}
+
+.vc-bank {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gold-light);
+  letter-spacing: 0.5px;
+}
+
+.vc-bank-sub {
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.vc-chip {
+  width: 44px; height: 34px;
+  background: linear-gradient(135deg, #c9a84c, #e8c97a);
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 2px;
+  padding: 5px;
+  opacity: 0.9;
+}
+
+.vc-chip span {
+  background: rgba(0,0,0,0.3);
+  border-radius: 1px;
+}
+
+.vc-chip span:nth-child(2), .vc-chip span:nth-child(5), .vc-chip span:nth-child(8) {
+  background: rgba(0,0,0,0.5);
+}
+
+.vc-middle {
+  position: absolute;
+  top: 50%; left: 36px; right: 36px;
+  transform: translateY(-60%);
+  z-index: 1;
+}
+
+.vc-number {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(14px, 3.5vw, 19px);
+  font-weight: 500;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 6px;
+}
+
+.vc-balance-label {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.vc-balance {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 5vw, 28px);
+  font-weight: 700;
+  color: var(--green);
+  text-shadow: 0 0 20px rgba(0,214,143,0.3);
+}
+
+.vc-bottom {
+  position: absolute;
+  bottom: 28px; left: 36px; right: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  z-index: 1;
+}
+
+.vc-holder-label {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.vc-holder-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.vc-rsfr {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.15);
+  letter-spacing: 3px;
+}
+
+/* Stats row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 480px) {
+  .stats-row { grid-template-columns: 1fr 1fr; }
+}
+
+.stat-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  transition: border-color 0.2s;
+}
+
+.stat-card:hover { border-color: var(--border-bright); }
+
+.stat-card.full { grid-column: 1 / -1; }
+
+.stat-card-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.stat-card-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.stat-card-value.money {
+  color: var(--green);
+  font-size: 26px;
+  text-shadow: 0 0 20px rgba(0,214,143,0.2);
+}
+
+.stat-card-value.gold { color: var(--gold-light); }
+
+/* ── ACTION BUTTONS ── */
+.action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.action-btn {
+  border-radius: 10px;
+  padding: 14px 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  border: none;
+}
+
+.btn-deposit {
+  background: var(--green-dim);
+  border: 1px solid rgba(0,214,143,0.25);
+  color: var(--green);
+}
+
+.btn-deposit:hover {
+  background: rgba(0,214,143,0.2);
+  box-shadow: 0 4px 20px rgba(0,214,143,0.15);
+  transform: translateY(-1px);
+}
+
+.btn-withdraw {
+  background: var(--red-dim);
+  border: 1px solid rgba(255,77,109,0.25);
+  color: var(--red);
+}
+
+.btn-withdraw:hover {
+  background: rgba(255,77,109,0.2);
+  box-shadow: 0 4px 20px rgba(255,77,109,0.15);
+  transform: translateY(-1px);
+}
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border-bright);
+  border-radius: 20px;
+  padding: 36px;
+  width: 100%;
+  max-width: 460px;
+  animation: modalIn 0.3s cubic-bezier(.22,1,.36,1) both;
+  position: relative;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.94) translateY(16px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px; right: 20px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.modal-close:hover { color: var(--text); }
+
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.modal-sub {
+  font-size: 13px;
+  color: var(--muted-bright);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.modal-field label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted-bright);
+}
+
+.modal-field input {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 13px 16px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.modal-field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(61,111,255,0.1);
+}
+
+.modal-field input[readonly] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-info-box {
+  background: var(--gold-dim);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--gold-light);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.modal-submit {
+  width: 100%;
+  background: linear-gradient(135deg, var(--green) 0%, #00c47e 100%);
+  border: none;
+  border-radius: 10px;
+  color: #07080f;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 15px;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 4px 20px rgba(0,214,143,0.2);
+}
+
+.modal-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+.modal-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* Withdraw modal */
+.withdraw-info {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.withdraw-discord {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: #5865f2;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.withdraw-note {
+  font-size: 13px;
+  color: var(--muted-bright);
+  line-height: 1.6;
+}
+
+.modal-close-btn {
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.modal-close-btn:hover { border-color: var(--border-bright); }
+
+/* Upload box */
+.upload-box {
+  background: var(--panel);
+  border: 2px dashed var(--border-bright);
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.upload-box:hover {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.upload-icon { font-size: 28px; margin-bottom: 8px; }
+
+.upload-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.upload-sub {
+  font-size: 11px;
+  color: var(--muted-bright);
+}
+
+.upload-preview-wrap {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border-bright);
+}
+
+#uploadPreview {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.remove-img-btn {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: rgba(0,0,0,0.75);
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.remove-img-btn:hover { background: var(--red); }
+
+/* Success state */
+.success-box {
+  display: none;
+  background: var(--green-dim);
+  border: 1px solid rgba(0,214,143,0.25);
+  border-radius: 10px;
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 16px;
+  text-align: center;
+  margin-top: 16px;
+}
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 32px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+footer strong { color: var(--muted-bright); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-logo">
+    <div class="logo-icon">R</div>
+    <div class="logo-text">
+      RSFR Bank
+      <span class="logo-sub">Apartment Division</span>
+    </div>
+  </div>
+  <div class="header-badge">System Online</div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">South West Florida Roleplay · ECO System</div>
+    <h1>Your <em>Account,</em><br>At a Glance</h1>
+    <p class="hero-desc">Look up your ECO card balance, ID, and company details. Deposit requests are sent directly to our team.</p>
+  </div>
+
+  <!-- LOOKUP -->
+  <div class="section-label">Account Lookup</div>
+
+  <div class="lookup-grid">
+    <div class="field-group">
+      <span class="field-label">Card Number</span>
+      <input class="field-input" id="cardInput" type="text" placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19" autocomplete="off" />
+    </div>
+    <div class="field-group">
+      <span class="field-label">Player ID</span>
+      <input class="field-input" id="idInput" type="text" placeholder="e.g. 918512360" autocomplete="off" />
+    </div>
+  </div>
+
+  <button class="lookup-btn" onclick="lookupAccount()">🔍 &nbsp;Look Up Account</button>
+  <div class="error-box" id="errorBox">⚠️ No account found. Double-check your Card Number and Player ID.</div>
+
+  <!-- RESULT -->
+  <div id="resultSection">
+    <div class="divider"></div>
+    <div class="section-label">Account Details</div>
+
+    <!-- Visual card -->
+    <div class="visa-card">
+      <div class="vc-top">
+        <div>
+          <div class="vc-bank">RSFR Bank</div>
+          <div class="vc-bank-sub">Apartment Division</div>
+        </div>
+        <div class="vc-chip">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="vc-middle">
+        <div class="vc-number" id="vcNumber">XXXX-XXXX-XXXX-XXXX</div>
+        <div class="vc-balance-label">ECO Balance</div>
+        <div class="vc-balance" id="vcBalance">$0</div>
+      </div>
+
+      <div class="vc-bottom">
+        <div>
+          <div class="vc-holder-label">Card Holder</div>
+          <div class="vc-holder-name" id="vcName">—</div>
+        </div>
+        <div class="vc-rsfr">RSFR</div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-card-label">Player ID</div>
+        <div class="stat-card-value gold" id="statId">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Company</div>
+        <div class="stat-card-value" id="statCompany">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">ECO Balance</div>
+        <div class="stat-card-value money" id="statBalance">$0</div>
+      </div>
+    </div>
+
+    <div class="stat-card full" style="grid-column:unset">
+      <div class="stat-card-label">Account Holder</div>
+      <div class="stat-card-value" id="statName" style="font-size:17px">—</div>
+    </div>
+
+    <!-- Actions -->
+    <div class="action-row">
+      <button class="action-btn btn-deposit" onclick="openDeposit()">＋ &nbsp;Deposit Money</button>
+      <button class="action-btn btn-withdraw" onclick="openWithdraw()">− &nbsp;Withdraw Money</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <strong>RSFR Bank — Apartment Division</strong> &nbsp;·&nbsp; South West Florida Roleplay &nbsp;·&nbsp; Powered by Unbelievable Bot (ECO)
+</footer>
+
+<!-- DEPOSIT MODAL -->
+<div class="modal-overlay" id="depositModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeDeposit()">×</button>
+    <div class="modal-title">Deposit Request</div>
+    <div class="modal-sub">Fill out the form below. Our team will be notified via Discord and update your balance shortly.</div>
+
+    <div class="modal-field">
+      <label>Your Name</label>
+      <input type="text" id="dep-name" readonly />
+    </div>
+    <div class="modal-field">
+      <label>Card Number</label>
+      <input type="text" id="dep-card" readonly />
+    </div>
+    <div class="modal-field">
+      <label>Deposit Amount (ECO $)</label>
+      <input type="number" id="dep-amount" placeholder="e.g. 5000" min="1" />
+    </div>
+    <div class="modal-field">
+      <label>Reason / Note</label>
+      <input type="text" id="dep-reason" placeholder="e.g. Paycheck, transfer from..." />
+    </div>
+
+    <div class="modal-field">
+      <label>📸 Proof of Payment <span style="color:#ff4d6d">*Required</span></label>
+      <div class="upload-box" id="uploadBox" onclick="document.getElementById('dep-proof').click()">
+        <div class="upload-icon">📷</div>
+        <div class="upload-text">Click to upload screenshot</div>
+        <div class="upload-sub">Must show payment to <strong>RSFR_APARTMENT_FUNDS</strong></div>
+        <input type="file" id="dep-proof" accept="image/*" style="display:none" onchange="handleImageUpload(this)" />
+      </div>
+      <div class="upload-preview-wrap" id="uploadPreviewWrap" style="display:none">
+        <img id="uploadPreview" src="" alt="Proof" />
+        <button class="remove-img-btn" onclick="removeImage()">✕ Remove</button>
+      </div>
+    </div>
+
+    <div class="modal-info-box">
+      💡 Send <strong>ECO money to RSFR_APARTMENT_FUNDS</strong> in-game first, then upload a screenshot as proof. Our team will verify and update your balance.
+    </div>
+
+    <button class="modal-submit" id="dep-submit-btn" onclick="submitDeposit()">Send Deposit Request</button>
+    <div class="success-box" id="dep-success">✅ Request sent! Your deposit will be processed shortly.</div>
+  </div>
+</div>
+
+<!-- WITHDRAW MODAL -->
+<div class="modal-overlay" id="withdrawModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeWithdraw()">×</button>
+    <div class="modal-title">Withdraw Money</div>
+    <div class="modal-sub">To withdraw funds, please contact our bank manager directly on Roblox or Discord.</div>
+
+    <div class="withdraw-info">
+      <div class="withdraw-discord">@brandon_xp123</div>
+      <div class="withdraw-note">DM <strong>@brandon_xp123</strong> on Discord with your card number, Player ID, and the amount you wish to withdraw. Withdrawals are processed manually by our team.</div>
+    </div>
+
+    <div class="modal-info-box">
+      📋 Have ready: <strong>Card Number</strong>, <strong>Player ID</strong>, and <strong>Withdraw Amount</strong>
+    </div>
+
+    <button class="modal-close-btn" onclick="closeWithdraw()">Got it, close</button>
+  </div>
+</div>
+
+<script>
+  // ══════════════════════════════════════════════════════
+  // CONFIG — update these two values:
+  // ══════════════════════════════════════════════════════
+  const JSON_URL = 'players.json'; // path to your JSON file, or full GitHub raw URL
+  const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1474058130127192307/g7bJiB9d0nKsyUpJgK9vfRB3tbYZ__qqWAUVtihTdijOa5z7jIk-q-wtnh9VnqOPMrzy';
+  // ══════════════════════════════════════════════════════
+
+  let currentPlayer = null;
+  let allData = null;
+
+  // Auto-format card number input
+  document.getElementById('cardInput').addEventListener('input', function(e) {
+    let v = e.target.value.replace(/[^0-9]/g, '');
+    let parts = [];
+    for (let i = 0; i < v.length && i < 16; i += 4) parts.push(v.substring(i, i + 4));
+    e.target.value = parts.join('-');
+  });
+
+  ['cardInput', 'idInput'].forEach(id => {
+    document.getElementById(id).addEventListener('keydown', e => {
+      if (e.key === 'Enter') lookupAccount();
+    });
+  });
+
+  async function fetchData() {
+    if (allData) return allData;
+    try {
+      const res = await fetch(JSON_URL + '?t=' + Date.now());
+      allData = await res.json();
+      return allData;
+    } catch (err) {
+      console.error('Could not load players.json:', err);
+      return null;
+    }
+  }
+
+  async function lookupAccount() {
+    const cardNum = document.getElementById('cardInput').value.trim();
+    const playerId = document.getElementById('idInput').value.trim();
+
+    if (!cardNum || !playerId) {
+      showError('Please enter both your Card Number and Player ID.');
+      return;
+    }
+
+    const data = await fetchData();
+    if (!data) {
+      showError('Could not load account data. Please try again.');
+      return;
+    }
+
+    const player = data.players.find(p =>
+      p.card_number === cardNum && String(p.id) === String(playerId)
+    );
+
+    if (!player) {
+      showError('No account found. Double-check your Card Number and Player ID.');
+      document.getElementById('resultSection').style.display = 'none';
+      return;
+    }
+
+    document.getElementById('errorBox').style.display = 'none';
+    currentPlayer = player;
+    displayResult(player);
+  }
+
+  function displayResult(p) {
+    const nameClean = p.name.replace('@','').split('|')[0].trim().toUpperCase();
+    const formatted = '$' + Number(p.amount).toLocaleString();
+
+    // Card
+    document.getElementById('vcNumber').textContent = p.card_number;
+    document.getElementById('vcBalance').textContent = formatted;
+    document.getElementById('vcName').textContent = nameClean;
+
+    // Stats
+    document.getElementById('statId').textContent = p.id;
+    document.getElementById('statCompany').textContent = p.company || 'None';
+    document.getElementById('statBalance').textContent = formatted;
+    document.getElementById('statName').textContent = p.name;
+
+    document.getElementById('resultSection').style.display = 'block';
+    document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('errorBox');
+    el.textContent = '⚠️ ' + msg;
+    el.style.display = 'block';
+  }
+
+  // ── DEPOSIT ──
+  let proofImageFile = null;
+
+  function openDeposit() {
+    if (!currentPlayer) return;
+    document.getElementById('dep-name').value = currentPlayer.name;
+    document.getElementById('dep-card').value = currentPlayer.card_number;
+    document.getElementById('dep-amount').value = '';
+    document.getElementById('dep-reason').value = '';
+    document.getElementById('dep-success').style.display = 'none';
+    document.getElementById('dep-submit-btn').disabled = false;
+    document.getElementById('dep-submit-btn').textContent = 'Send Deposit Request';
+    removeImage();
+    document.getElementById('depositModal').classList.add('open');
+  }
+
+  function closeDeposit() {
+    document.getElementById('depositModal').classList.remove('open');
+  }
+
+  function handleImageUpload(input) {
+    if (input.files && input.files[0]) {
+      proofImageFile = input.files[0];
+      const reader = new FileReader();
+      reader.onload = e => {
+        document.getElementById('uploadPreview').src = e.target.result;
+        document.getElementById('uploadBox').style.display = 'none';
+        document.getElementById('uploadPreviewWrap').style.display = 'block';
+      };
+      reader.readAsDataURL(proofImageFile);
+    }
+  }
+
+  function removeImage() {
+    proofImageFile = null;
+    document.getElementById('dep-proof').value = '';
+    document.getElementById('uploadBox').style.display = 'block';
+    document.getElementById('uploadPreviewWrap').style.display = 'none';
+    document.getElementById('uploadPreview').src = '';
+  }
+
+  async function submitDeposit() {
+    const amount = document.getElementById('dep-amount').value.trim();
+    const reason = document.getElementById('dep-reason').value.trim();
+
+    if (!amount || Number(amount) <= 0) {
+      alert('Please enter a valid deposit amount.');
+      return;
+    }
+
+    if (!proofImageFile) {
+      alert('Please upload a screenshot showing payment to RSFR_APARTMENT_FUNDS.');
+      return;
+    }
+
+    const btn = document.getElementById('dep-submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    try {
+      // Build FormData — Discord accepts multipart with payload_json + file
+      const formData = new FormData();
+
+      const embed = {
+        embeds: [{
+          title: '💰 New Deposit Request',
+          color: 0x00d68f,
+          fields: [
+            { name: '👤 Player', value: currentPlayer.name, inline: true },
+            { name: '🪪 Player ID', value: String(currentPlayer.id), inline: true },
+            { name: '💳 Card Number', value: currentPlayer.card_number, inline: false },
+            { name: '💵 Deposit Amount', value: '**$' + Number(amount).toLocaleString() + ' ECO**', inline: true },
+            { name: '🏢 Company', value: currentPlayer.company || 'None', inline: true },
+            { name: '📊 Current Balance', value: '$' + Number(currentPlayer.amount).toLocaleString() + ' ECO', inline: true },
+            { name: '📝 Note', value: reason || 'No reason provided', inline: false },
+            { name: '✅ Action Required', value: 'Verify screenshot below, then update `players.json`', inline: false },
+          ],
+          image: { url: 'attachment://proof.png' },
+          footer: { text: 'RSFR Bank — Apartment Division' },
+          timestamp: new Date().toISOString()
+        }],
+        username: 'RSFR Bank',
+        content: '📬 **New deposit request received!** Please verify and update the balance.'
+      };
+
+      formData.append('payload_json', JSON.stringify(embed));
+      formData.append('files[0]', proofImageFile, 'proof.png');
+
+      const res = await fetch(DISCORD_WEBHOOK, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (res.ok) {
+        document.getElementById('dep-success').style.display = 'block';
+        btn.textContent = 'Request Sent ✓';
+      } else {
+        throw new Error('Webhook failed: ' + res.status);
+      }
+    } catch (err) {
+      console.error(err);
+      btn.disabled = false;
+      btn.textContent = 'Send Deposit Request';
+      alert('Failed to send. Error: ' + err.message);
+    }
+  }
+
+  // ── WITHDRAW ──
+  function openWithdraw() {
+    document.getElementById('withdrawModal').classList.add('open');
+  }
+
+  function closeWithdraw() {
+    document.getElementById('withdrawModal').classList.remove('open');
+  }
+
+  // Close modals on overlay click
+  document.getElementById('depositModal').addEventListener('click', function(e) {
+    if (e.target === this) closeDeposit();
+  });
+  document.getElementById('withdrawModal').addEventListener('click', function(e) {
+    if (e.target === this) closeWithdraw();
+  });
+</script>
+</body>
+</html>
