@@ -20,11 +20,11 @@
       "amount": 50101,
       "company": "Apartment"
     },
-     {
+    {
       "name": "frraron",
       "id": "7730",
       "card_number": "0773-0000-6433-2089",
-      "amount": ,
+      "amount": 0,
       "company": "nil"
     }
   ]
