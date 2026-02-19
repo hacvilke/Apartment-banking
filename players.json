@@ -26,14 +26,14 @@
       "card_number": "0773-0000-6433-2089",
       "amount": 0,
       "company": "nil"
-    }
+    },
     {
-  "name": "Cayden",
-  "id": "9084426791",
-  "card_number": "6534-7919-4426-6791",
-  "amount": 0,
-  "company": "RSFR OWNER",
-  "role": "owner"
-}
+      "name": "Cayden",
+      "id": "9084426791",
+      "card_number": "6534-7919-4426-6791",
+      "amount": 0,
+      "company": "RSFR OWNER",
+      "role": "owner"
+    }
   ]
 }
