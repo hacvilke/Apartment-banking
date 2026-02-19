@@ -566,7 +566,8 @@ h1 em {
   z-index: 100;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 16px;
+  overflow-y: auto;
 }
 
 .modal-overlay.open { display: flex; }
@@ -578,6 +579,8 @@ h1 em {
   padding: 36px;
   width: 100%;
   max-width: 460px;
+  max-height: 90vh;
+  overflow-y: auto;
   animation: modalIn 0.3s cubic-bezier(.22,1,.36,1) both;
   position: relative;
 }
@@ -852,7 +855,7 @@ footer strong { color: var(--muted-bright); }
     </div>
     <div class="field-group">
       <span class="field-label">Player ID</span>
-      <input class="field-input" id="idInput" type="text" placeholder="e.g. 784123" autocomplete="off" />
+      <input class="field-input" id="idInput" type="text" placeholder="e.g. 12345" autocomplete="off" />
     </div>
   </div>
 
