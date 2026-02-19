@@ -34,6 +34,14 @@
       "amount": 0,
       "company": "RSFR OWNER",
       "role": "owner"
+    },
+     {
+      "name": "Batman",
+      "id": "1432",
+      "card_number": "1736-1932-1832-0000",
+      "amount": 1000000,
+      "company": "DELERSHIP OWNER",
+      "role": "platnium"
     }
   ]
 }
