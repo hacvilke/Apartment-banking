@@ -463,6 +463,189 @@ h1 em {
   letter-spacing: 3px;
 }
 
+/* Platinum black/red card */
+.visa-card.platinum-card {
+  background: linear-gradient(135deg, #0a0000 0%, #1a0000 30%, #0d0000 60%, #050000 100%);
+  border: 1px solid rgba(255,77,109,0.5);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.9),
+    0 0 40px rgba(255,30,60,0.15),
+    inset 0 1px 0 rgba(255,77,109,0.15);
+  animation: platinumGlow 3s ease-in-out infinite;
+}
+
+@keyframes platinumGlow {
+  0%, 100% { box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 30px rgba(255,30,60,0.1), inset 0 1px 0 rgba(255,77,109,0.15); }
+  50% { box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 60px rgba(255,30,60,0.3), inset 0 1px 0 rgba(255,77,109,0.25); }
+}
+
+.visa-card.platinum-card::before {
+  background: radial-gradient(circle, rgba(255,30,60,0.18) 0%, transparent 70%);
+}
+
+.visa-card.platinum-card::after {
+  background: radial-gradient(circle, rgba(180,0,0,0.1) 0%, transparent 70%);
+}
+
+.visa-card.platinum-card .vc-number {
+  color: rgba(255,120,140,0.9);
+  letter-spacing: 5px;
+  text-shadow: 0 0 10px rgba(255,30,60,0.4);
+}
+
+.visa-card.platinum-card .vc-balance {
+  color: #ff4d6d;
+  text-shadow: 0 0 20px rgba(255,30,60,0.6);
+}
+
+.visa-card.platinum-card .vc-holder-name {
+  color: rgba(255,120,140,0.9);
+}
+
+.visa-card.platinum-card .vc-bank {
+  color: #ff6b85;
+}
+
+.platinum-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(255,30,60,0.2), rgba(180,0,0,0.1));
+  border: 1px solid rgba(255,77,109,0.4);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ff6b85;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  animation: platinumGlow 3s ease-in-out infinite;
+}
+
+.platinum-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255,30,60,0.07) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+/* Platinum card */
+.visa-card.platinum-card {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2e2e2e 40%, #1a1a1a 70%, #0d0d0d 100%);
+  border: 1px solid rgba(192,192,192,0.5);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.8),
+    0 0 40px rgba(192,192,192,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+  animation: platinumGlow 3s ease-in-out infinite;
+}
+
+@keyframes platinumGlow {
+  0%, 100% { box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 25px rgba(192,192,192,0.08), inset 0 1px 0 rgba(255,255,255,0.1); }
+  50% { box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 50px rgba(192,192,192,0.18), inset 0 1px 0 rgba(255,255,255,0.15); }
+}
+
+.visa-card.platinum-card::before {
+  background: radial-gradient(circle, rgba(200,200,200,0.12) 0%, transparent 70%);
+}
+
+.visa-card.platinum-card .vc-number {
+  color: rgba(210,210,220,0.9);
+  letter-spacing: 5px;
+}
+
+.visa-card.platinum-card .vc-balance {
+  color: #c8c8dc;
+  text-shadow: 0 0 20px rgba(192,192,192,0.4);
+}
+
+.visa-card.platinum-card .vc-holder-name {
+  color: #d0d0e0;
+}
+
+.visa-card.platinum-card .vc-bank {
+  color: #c0c0d0;
+}
+
+.platinum-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05));
+  border: 1px solid rgba(192,192,192,0.35);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #c8c8dc;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+/* VIP red & black card */
+.visa-card.vip-card {
+  background: linear-gradient(135deg, #1a0000 0%, #2d0a0a 30%, #1a0000 60%, #0d0000 100%);
+  border: 1px solid rgba(220,50,50,0.5);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.8),
+    0 0 40px rgba(200,0,0,0.12),
+    inset 0 1px 0 rgba(255,80,80,0.15);
+  animation: vipGlow 3s ease-in-out infinite;
+}
+
+@keyframes vipGlow {
+  0%, 100% { box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 25px rgba(200,0,0,0.1), inset 0 1px 0 rgba(255,80,80,0.15); }
+  50% { box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 55px rgba(200,0,0,0.25), inset 0 1px 0 rgba(255,80,80,0.25); }
+}
+
+.visa-card.vip-card::before {
+  background: radial-gradient(circle, rgba(200,30,30,0.18) 0%, transparent 70%);
+}
+
+.visa-card.vip-card .vc-number {
+  color: rgba(255,160,160,0.9);
+  letter-spacing: 5px;
+}
+
+.visa-card.vip-card .vc-balance {
+  color: #ff6b6b;
+  text-shadow: 0 0 20px rgba(255,50,50,0.4);
+}
+
+.visa-card.vip-card .vc-holder-name {
+  color: #ff9999;
+}
+
+.visa-card.vip-card .vc-bank {
+  color: #ff8080;
+}
+
+.vip-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(200,30,30,0.2), rgba(200,30,30,0.07));
+  border: 1px solid rgba(220,50,50,0.4);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ff8080;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
 /* Owner card special styling */
 .visa-card.owner-card {
   background: linear-gradient(135deg, #1a1200 0%, #2d1f00 30%, #1a1200 60%, #0d0a00 100%);
@@ -940,6 +1123,8 @@ footer strong { color: var(--muted-bright); }
 
     <!-- Visual card -->
     <div id="ownerBadge" class="owner-crown-badge" style="display:none">👑 &nbsp;RSFR Server Owner</div>
+    <div id="platinumBadge" class="platinum-badge" style="display:none">💎 &nbsp;Platinum Member</div>
+    <div id="vipBadge" class="vip-badge" style="display:none">🔴 &nbsp;VIP Member</div>
     <div class="visa-card" id="visaCard">
       <div class="vc-top">
         <div>
@@ -1140,39 +1325,60 @@ footer strong { color: var(--muted-bright); }
   function displayResult(p) {
     const nameClean = p.name.replace('@','').split('|')[0].trim().toUpperCase();
     const formatted = '$' + Number(p.amount).toLocaleString();
-    const isOwner = p.role === 'owner';
+    const role = p.role || 'normal';
 
     // Card
     document.getElementById('vcNumber').textContent = p.card_number;
     document.getElementById('vcBalance').textContent = formatted;
     document.getElementById('vcName').textContent = nameClean;
 
-    // Owner card special styling
     const visaCard = document.getElementById('visaCard');
     const ownerBadge = document.getElementById('ownerBadge');
+    const platinumBadge = document.getElementById('platinumBadge');
+    const vipBadge = document.getElementById('vipBadge');
     const vcRsfr = document.getElementById('vcRsfr');
 
-    if (isOwner) {
+    // Reset everything first
+    visaCard.classList.remove('owner-card', 'platinum-card', 'vip-card');
+    ['ownerShimmer','platinumShimmer','vipShimmer'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.remove();
+    });
+    ownerBadge.style.display = 'none';
+    platinumBadge.style.display = 'none';
+    vipBadge.style.display = 'none';
+    vcRsfr.textContent = 'RSFR';
+    vcRsfr.style.color = '';
+    vcRsfr.style.fontSize = '';
+
+    if (role === 'owner') {
       visaCard.classList.add('owner-card');
-      // Add shimmer effect
-      if (!document.getElementById('ownerShimmer')) {
-        const shimmer = document.createElement('div');
-        shimmer.className = 'owner-shimmer';
-        shimmer.id = 'ownerShimmer';
-        visaCard.appendChild(shimmer);
-      }
+      const s = document.createElement('div');
+      s.className = 'owner-shimmer'; s.id = 'ownerShimmer';
+      visaCard.appendChild(s);
       ownerBadge.style.display = 'inline-flex';
       vcRsfr.textContent = '👑 OWNER';
-      vcRsfr.style.color = 'rgba(201,168,76,0.5)';
+      vcRsfr.style.color = 'rgba(201,168,76,0.6)';
       vcRsfr.style.fontSize = '13px';
-    } else {
-      visaCard.classList.remove('owner-card');
-      const shimmer = document.getElementById('ownerShimmer');
-      if (shimmer) shimmer.remove();
-      ownerBadge.style.display = 'none';
-      vcRsfr.textContent = 'RSFR';
-      vcRsfr.style.color = '';
-      vcRsfr.style.fontSize = '';
+
+    } else if (role === 'platinum' || role === 'platnium') {
+      visaCard.classList.add('platinum-card');
+      const s = document.createElement('div');
+      s.className = 'owner-shimmer'; s.id = 'platinumShimmer';
+      visaCard.appendChild(s);
+      platinumBadge.style.display = 'inline-flex';
+      vcRsfr.textContent = '💎 PLATINUM';
+      vcRsfr.style.color = 'rgba(192,192,210,0.6)';
+      vcRsfr.style.fontSize = '12px';
+
+    } else if (role === 'vip') {
+      visaCard.classList.add('vip-card');
+      const s = document.createElement('div');
+      s.className = 'owner-shimmer'; s.id = 'vipShimmer';
+      visaCard.appendChild(s);
+      vipBadge.style.display = 'inline-flex';
+      vcRsfr.textContent = '🔴 VIP';
+      vcRsfr.style.color = 'rgba(220,50,50,0.6)';
+      vcRsfr.style.fontSize = '13px';
     }
 
     // Stats
