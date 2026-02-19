@@ -852,7 +852,7 @@ footer strong { color: var(--muted-bright); }
     </div>
     <div class="field-group">
       <span class="field-label">Player ID</span>
-      <input class="field-input" id="idInput" type="text" placeholder="e.g. 918512360" autocomplete="off" />
+      <input class="field-input" id="idInput" type="text" placeholder="e.g. 784123" autocomplete="off" />
     </div>
   </div>
 
@@ -950,17 +950,19 @@ footer strong { color: var(--muted-bright); }
       <input type="text" id="dep-reason" placeholder="e.g. Paycheck, transfer from..." />
     </div>
 
+    <!-- file input OUTSIDE the clickable div so it never loops -->
+    <input type="file" id="dep-proof" accept="image/*" style="display:none" />
+
     <div class="modal-field">
       <label>📸 Proof of Payment <span style="color:#ff4d6d">*Required</span></label>
-      <div class="upload-box" id="uploadBox" onclick="document.getElementById('dep-proof').click()">
+      <div class="upload-box" id="uploadBox">
         <div class="upload-icon">📷</div>
         <div class="upload-text">Click to upload screenshot</div>
         <div class="upload-sub">Must show payment to <strong>RSFR_APARTMENT_FUNDS</strong></div>
-        <input type="file" id="dep-proof" accept="image/*" style="display:none" onchange="handleImageUpload(this)" />
       </div>
       <div class="upload-preview-wrap" id="uploadPreviewWrap" style="display:none">
         <img id="uploadPreview" src="" alt="Proof" />
-        <button class="remove-img-btn" onclick="removeImage()">✕ Remove</button>
+        <button type="button" class="remove-img-btn" onclick="removeImage()">✕ Remove</button>
       </div>
     </div>
 
@@ -968,7 +970,7 @@ footer strong { color: var(--muted-bright); }
       💡 Send <strong>ECO money to RSFR_APARTMENT_FUNDS</strong> in-game first, then upload a screenshot as proof. Our team will verify and update your balance.
     </div>
 
-    <button class="modal-submit" id="dep-submit-btn" onclick="submitDeposit()">Send Deposit Request</button>
+    <button type="button" class="modal-submit" id="dep-submit-btn" onclick="submitDeposit()">Send Deposit Request</button>
     <div class="success-box" id="dep-success">✅ Request sent! Your deposit will be processed shortly.</div>
   </div>
 </div>
@@ -1087,6 +1089,15 @@ footer strong { color: var(--muted-bright); }
 
   // ── DEPOSIT ──
   let proofImageFile = null;
+
+  // Wire up upload box click and file change properly
+  document.getElementById('uploadBox').addEventListener('click', function() {
+    document.getElementById('dep-proof').click();
+  });
+
+  document.getElementById('dep-proof').addEventListener('change', function() {
+    handleImageUpload(this);
+  });
 
   function openDeposit() {
     if (!currentPlayer) return;
