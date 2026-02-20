@@ -66,11 +66,13 @@
       "company": "COMPANY"
     },
     {
-      "name": "USERNAME",
-      "id": "ID",
-      "card_number": "XXXX-XXXX-XXXX-XXXX",
-      "amount": 0,
-      "company": "COMPANY"
+      "name": "brandon",
+      "id": "119922",
+      "card_number": "1111-3333-0000-2999",
+      "amount": 56000,
+      "company": "apartment owner"
+      "insurance": "basic",
+      "role": "platinum"
     },
     {
       "name": "USERNAME",
