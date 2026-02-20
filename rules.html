@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSFR Bank — Insurance Rules</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07080f;
+  --surface: #0d0f1c;
+  --panel: #111425;
+  --border: #1e2238;
+  --border-bright: #2e3560;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-dim: rgba(201,168,76,0.15);
+  --accent: #3d6fff;
+  --accent-dim: rgba(61,111,255,0.12);
+  --green: #00d68f;
+  --green-dim: rgba(0,214,143,0.12);
+  --red: #ff4d6d;
+  --red-dim: rgba(255,77,109,0.12);
+  --text: #eef0f8;
+  --muted: #5a6080;
+  --muted-bright: #8892b0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 900px; height: 600px;
+  background: radial-gradient(ellipse, rgba(61,111,255,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* HEADER */
+header {
+  position: relative;
+  z-index: 10;
+  border-bottom: 1px solid var(--border);
+  background: rgba(7,8,15,0.8);
+  backdrop-filter: blur(20px);
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: #07080f;
+}
+
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.logo-sub {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: block;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted-bright);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.back-btn:hover { border-color: var(--border-bright); color: var(--text); }
+
+/* MAIN */
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 60px 24px 100px;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  margin-bottom: 56px;
+  animation: fadeDown 0.6s cubic-bezier(.22,1,.36,1) both;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: '';
+  width: 24px; height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: 14px;
+}
+
+h1 em { font-style: italic; color: var(--gold-light); }
+
+.hero-desc {
+  font-size: 14px;
+  color: var(--muted-bright);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* SECTION LABEL */
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ALERT BOX */
+.alert-box {
+  background: var(--red-dim);
+  border: 1px solid rgba(255,77,109,0.3);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 32px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  animation: fadeUp 0.5s 0.1s cubic-bezier(.22,1,.36,1) both;
+}
+
+.alert-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+
+.alert-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 6px;
+}
+
+.alert-text {
+  font-size: 13px;
+  color: #ffb3c1;
+  line-height: 1.7;
+}
+
+/* RULES SECTION */
+.rules-section {
+  margin-bottom: 40px;
+  animation: fadeUp 0.5s 0.15s cubic-bezier(.22,1,.36,1) both;
+}
+
+.rules-group {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.rules-group-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+}
+
+.rules-group-icon { font-size: 20px; }
+
+.rules-group-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.rule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.rule-item:last-child { border-bottom: none; }
+.rule-item:hover { background: rgba(255,255,255,0.02); }
+
+.rule-number {
+  width: 26px; height: 26px;
+  background: var(--border);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--muted-bright);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.rule-number.red { background: var(--red-dim); color: var(--red); }
+.rule-number.green { background: var(--green-dim); color: var(--green); }
+.rule-number.gold { background: var(--gold-dim); color: var(--gold-light); }
+.rule-number.blue { background: var(--accent-dim); color: #7096ff; }
+
+.rule-content { flex: 1; }
+
+.rule-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.rule-desc {
+  font-size: 12px;
+  color: var(--muted-bright);
+  line-height: 1.6;
+}
+
+.rule-tag {
+  display: inline-block;
+  background: var(--red-dim);
+  border: 1px solid rgba(255,77,109,0.2);
+  color: var(--red);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+
+.rule-tag.green { background: var(--green-dim); border-color: rgba(0,214,143,0.2); color: var(--green); }
+.rule-tag.gold { background: var(--gold-dim); border-color: rgba(201,168,76,0.2); color: var(--gold-light); }
+.rule-tag.blue { background: var(--accent-dim); border-color: rgba(61,111,255,0.2); color: #7096ff; }
+
+/* PLANS REFERENCE */
+.plans-ref {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 40px;
+  animation: fadeUp 0.5s 0.2s cubic-bezier(.22,1,.36,1) both;
+}
+
+@media (max-width: 500px) { .plans-ref { grid-template-columns: 1fr; } }
+
+.plan-ref-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  transition: border-color 0.2s;
+}
+
+.plan-ref-card:hover { border-color: var(--border-bright); }
+.plan-ref-card.featured { border-color: rgba(201,168,76,0.35); }
+.plan-ref-card.vip-plan { border-color: rgba(255,77,109,0.25); }
+
+.plan-ref-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.plan-ref-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted-bright);
+  margin-bottom: 4px;
+}
+
+.plan-ref-row span:last-child { font-weight: 700; color: var(--text); }
+.plan-ref-row .green { color: var(--green); }
+.plan-ref-row .gold { color: var(--gold-light); }
+
+/* CONTACT */
+.contact-box {
+  background: linear-gradient(135deg, var(--panel), rgba(61,111,255,0.06));
+  border: 1px solid rgba(61,111,255,0.2);
+  border-radius: 16px;
+  padding: 28px 32px;
+  text-align: center;
+  animation: fadeUp 0.5s 0.25s cubic-bezier(.22,1,.36,1) both;
+}
+
+.contact-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.contact-desc {
+  font-size: 13px;
+  color: var(--muted-bright);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.contact-discord {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #7289da;
+  margin-bottom: 6px;
+}
+
+.contact-note { font-size: 12px; color: var(--muted); }
+
+/* FOOTER */
+footer {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 32px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+footer strong { color: var(--muted-bright); }
+
+/* ANIMATIONS */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="header-logo" href="index.html">
+    <div class="logo-icon">R</div>
+    <div class="logo-text">
+      RSFR Bank
+      <span class="logo-sub">Apartment Division</span>
+    </div>
+  </a>
+  <a class="back-btn" href="index.html">← Back to Portal</a>
+</header>
+
+<main>
+
+  <div class="hero">
+    <div class="hero-eyebrow">RSFR Bank · Official Policy</div>
+    <h1>Insurance <em>Rules</em><br>& Policy</h1>
+    <p class="hero-desc">Read all rules carefully before signing up for a plan or filing a claim. Violations may result in cancellation or a permanent ban from insurance services.</p>
+  </div>
+
+  <!-- WARNING -->
+  <div class="alert-box">
+    <div class="alert-icon">⚠️</div>
+    <div>
+      <div class="alert-title">Important Notice</div>
+      <div class="alert-text">Fraudulent claims, fake screenshots, or abuse of the insurance system will result in <strong>immediate plan cancellation</strong>, forfeiture of all premiums paid, and a <strong>permanent ban</strong> from RSFR Bank insurance services. All claims are reviewed manually.</div>
+    </div>
+  </div>
+
+  <!-- GENERAL RULES -->
+  <div class="section-label">General Rules</div>
+  <div class="rules-section">
+    <div class="rules-group">
+      <div class="rules-group-header">
+        <div class="rules-group-icon">📋</div>
+        <div class="rules-group-title">Eligibility & Enrollment</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number green">1</div>
+        <div class="rule-content">
+          <div class="rule-title">You must have an active RSFR Bank card</div>
+          <div class="rule-desc">Insurance is only available to registered card holders. Get your card first before signing up for a plan.</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number green">2</div>
+        <div class="rule-content">
+          <div class="rule-title">Coverage starts after first payment</div>
+          <div class="rule-desc">Your plan is not active until your first weekly premium has been received and confirmed by our team. Do not file claims before this.</div>
+          <div class="rule-tag green">Important</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number green">3</div>
+        <div class="rule-content">
+          <div class="rule-title">Sign up via Discord only</div>
+          <div class="rule-desc">To enroll in a plan, DM @brandon_xp123 with your card number and chosen plan. Do not attempt to add insurance yourself.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENT RULES -->
+    <div class="rules-group">
+      <div class="rules-group-header">
+        <div class="rules-group-icon">💰</div>
+        <div class="rules-group-title">Payments & Premiums</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number gold">4</div>
+        <div class="rule-content">
+          <div class="rule-title">Premiums are due every week</div>
+          <div class="rule-desc">You must pay your plan's weekly ECO premium on time. Payments go to RSFR_APARTMENT_FUNDS in-game.</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number gold">5</div>
+        <div class="rule-content">
+          <div class="rule-title">Missed payment = suspended coverage</div>
+          <div class="rule-desc">If you miss a weekly payment your coverage is immediately suspended. You cannot file claims while suspended. Pay the missed amount to reinstate.</div>
+          <div class="rule-tag">Strict</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number gold">6</div>
+        <div class="rule-content">
+          <div class="rule-title">Premiums are non-refundable</div>
+          <div class="rule-desc">Weekly premium payments are non-refundable regardless of whether you filed a claim or not during that period.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLAIM RULES -->
+    <div class="rules-group">
+      <div class="rules-group-header">
+        <div class="rules-group-icon">🛡️</div>
+        <div class="rules-group-title">Filing Claims</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number blue">7</div>
+        <div class="rule-content">
+          <div class="rule-title">Maximum 1 claim per week</div>
+          <div class="rule-desc">Each player may only file one insurance claim per week regardless of plan. Additional claims within the same week will be denied.</div>
+          <div class="rule-tag blue">Hard Limit</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number blue">8</div>
+        <div class="rule-content">
+          <div class="rule-title">Screenshot proof is mandatory</div>
+          <div class="rule-desc">Every claim must include a clear screenshot showing the incident. Claims submitted without valid proof will be automatically denied. No exceptions.</div>
+          <div class="rule-tag">Required</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number blue">9</div>
+        <div class="rule-content">
+          <div class="rule-title">Payout cannot exceed plan coverage</div>
+          <div class="rule-desc">The maximum payout for any single claim is capped at your plan's coverage limit. You cannot claim more than your plan allows even if the loss was greater.</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number blue">10</div>
+        <div class="rule-content">
+          <div class="rule-title">Claims are processed within 48 hours</div>
+          <div class="rule-desc">Our team will review your claim and proof within 48 hours. Do not DM repeatedly — this will not speed up the process.</div>
+          <div class="rule-tag blue">48hr SLA</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number blue">11</div>
+        <div class="rule-content">
+          <div class="rule-title">Incidents must have occurred in RSFR</div>
+          <div class="rule-desc">Only incidents that happened during an official RSFR South West Florida Roleplay session are eligible for claims.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DENIAL RULES -->
+    <div class="rules-group">
+      <div class="rules-group-header">
+        <div class="rules-group-icon">❌</div>
+        <div class="rules-group-title">Claim Denials & Violations</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number red">12</div>
+        <div class="rule-content">
+          <div class="rule-title">Self-inflicted incidents are not covered</div>
+          <div class="rule-desc">Losses that were caused by your own actions, poor decisions, or risky behavior are not eligible for claims. Insurance covers external incidents only.</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number red">13</div>
+        <div class="rule-content">
+          <div class="rule-title">Edited or fake screenshots = immediate ban</div>
+          <div class="rule-desc">Submitting altered, staged, or fake screenshots as proof is considered fraud. This results in permanent removal from all RSFR Bank insurance services.</div>
+          <div class="rule-tag">Zero Tolerance</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number red">14</div>
+        <div class="rule-content">
+          <div class="rule-title">RSFR Bank decisions are final</div>
+          <div class="rule-desc">All claim approvals and denials are at the sole discretion of the RSFR Bank team. There is no appeals process — our decision is final.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLANS REFERENCE -->
+  <div class="section-label">Plan Reference</div>
+  <div class="plans-ref">
+    <div class="plan-ref-card">
+      <div class="plan-ref-name">🥉 Basic</div>
+      <div class="plan-ref-row"><span>Weekly Premium</span><span class="gold">$500 ECO</span></div>
+      <div class="plan-ref-row"><span>Max Coverage</span><span class="green">$2,000 ECO</span></div>
+      <div class="plan-ref-row"><span>Processing</span><span>48 hours</span></div>
+    </div>
+    <div class="plan-ref-card">
+      <div class="plan-ref-name">🥈 Standard</div>
+      <div class="plan-ref-row"><span>Weekly Premium</span><span class="gold">$1,000 ECO</span></div>
+      <div class="plan-ref-row"><span>Max Coverage</span><span class="green">$5,000 ECO</span></div>
+      <div class="plan-ref-row"><span>Processing</span><span>48 hours</span></div>
+    </div>
+    <div class="plan-ref-card featured">
+      <div class="plan-ref-name">🥇 Premium</div>
+      <div class="plan-ref-row"><span>Weekly Premium</span><span class="gold">$2,500 ECO</span></div>
+      <div class="plan-ref-row"><span>Max Coverage</span><span class="green">$15,000 ECO</span></div>
+      <div class="plan-ref-row"><span>Processing</span><span>Priority</span></div>
+    </div>
+    <div class="plan-ref-card vip-plan">
+      <div class="plan-ref-name">💎 VIP</div>
+      <div class="plan-ref-row"><span>Weekly Premium</span><span class="gold">$5,000 ECO</span></div>
+      <div class="plan-ref-row"><span>Max Coverage</span><span class="green">$50,000 ECO</span></div>
+      <div class="plan-ref-row"><span>Processing</span><span>Same day</span></div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-box">
+    <div class="contact-title">Questions or Appeals?</div>
+    <div class="contact-desc">To sign up, cancel a plan, or ask about a claim decision — contact our bank manager directly on Discord.</div>
+    <div class="contact-discord">@brandon_xp123</div>
+    <div class="contact-note">RSFR Bank Manager · Apartment Division</div>
+  </div>
+
+</main>
+
+<footer>
+  <strong>RSFR Bank — Apartment Division</strong> &nbsp;·&nbsp; South West Florida Roleplay &nbsp;·&nbsp; Insurance Policy v1.0
+</footer>
+
+</body>
+</html>
