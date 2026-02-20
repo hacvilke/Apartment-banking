@@ -1053,6 +1053,132 @@ h1 em {
   margin-top: 16px;
 }
 
+/* Insurance card */
+.insurance-card {
+  background: linear-gradient(135deg, var(--panel), rgba(61,111,255,0.08));
+  border: 1px solid rgba(61,111,255,0.25);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.ins-left { display: flex; align-items: center; gap: 14px; }
+.ins-icon { font-size: 28px; }
+.ins-plan { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--accent); }
+.ins-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+.ins-coverage { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--green); text-align: right; }
+
+.no-insurance {
+  background: var(--panel);
+  border: 1px dashed var(--border-bright);
+  border-radius: 14px;
+  padding: 14px 20px;
+  font-size: 13px;
+  color: var(--muted-bright);
+  margin-top: 12px;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.btn-claim {
+  background: rgba(61,111,255,0.12);
+  border: 1px solid rgba(61,111,255,0.3);
+  color: #7096ff;
+  grid-column: 1 / -1;
+}
+
+.btn-claim:hover {
+  background: rgba(61,111,255,0.2);
+  box-shadow: 0 4px 20px rgba(61,111,255,0.15);
+  transform: translateY(-1px);
+}
+
+.btn-insurance-info {
+  background: var(--gold-dim);
+  border: 1px solid rgba(201,168,76,0.25);
+  color: var(--gold-light);
+}
+
+.btn-insurance-info:hover {
+  background: rgba(201,168,76,0.2);
+  transform: translateY(-1px);
+}
+
+/* Plans grid */
+.plans-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.plan-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.plan-card:hover { border-color: var(--border-bright); }
+
+.plan-card.plan-featured {
+  border-color: rgba(201,168,76,0.4);
+  background: linear-gradient(135deg, var(--panel), rgba(201,168,76,0.05));
+}
+
+.plan-card.plan-vip {
+  border-color: rgba(255,77,109,0.3);
+  background: linear-gradient(135deg, var(--panel), rgba(255,77,109,0.05));
+}
+
+.plan-badge {
+  position: absolute;
+  top: -10px; right: 12px;
+  background: var(--gold);
+  color: #07080f;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 10px;
+  border-radius: 100px;
+  letter-spacing: 1px;
+}
+
+.plan-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.plan-price {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--gold-light);
+  margin-bottom: 4px;
+}
+
+.plan-price span { font-size: 11px; color: var(--muted); font-weight: 400; }
+
+.plan-coverage {
+  font-size: 12px;
+  color: var(--green);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.plan-perks {
+  font-size: 11px;
+  color: var(--muted-bright);
+  line-height: 1.8;
+}
+
 /* ── FOOTER ── */
 footer {
   position: relative; z-index: 1;
@@ -1174,10 +1300,33 @@ footer strong { color: var(--muted-bright); }
       <div class="stat-card-value" id="statName" style="font-size:17px">—</div>
     </div>
 
+    <!-- Insurance card -->
+    <div class="insurance-card" id="insuranceCard" style="display:none">
+      <div class="ins-left">
+        <div class="ins-icon">🛡️</div>
+        <div>
+          <div class="ins-plan" id="insPlan">—</div>
+          <div class="ins-label">Insurance Plan</div>
+        </div>
+      </div>
+      <div class="ins-right">
+        <div class="ins-coverage" id="insCoverage">$0</div>
+        <div class="ins-label">Max Coverage</div>
+      </div>
+    </div>
+
+    <div class="no-insurance" id="noInsurance" style="display:none">
+      🚫 No insurance plan — <span onclick="openInsuranceInfo()" style="color:var(--gold);cursor:pointer;text-decoration:underline">learn more</span>
+    </div>
+
     <!-- Actions -->
     <div class="action-row">
       <button class="action-btn btn-deposit" onclick="openDeposit()">＋ &nbsp;Deposit Money</button>
       <button class="action-btn btn-withdraw" onclick="openWithdraw()">− &nbsp;Withdraw Money</button>
+    </div>
+    <div class="action-row" style="margin-top:12px">
+      <button class="action-btn btn-claim" id="claimBtn" onclick="openClaim()" style="display:none">🛡️ &nbsp;File Insurance Claim</button>
+      <button class="action-btn btn-insurance-info" onclick="openInsuranceInfo()">📋 &nbsp;Insurance Plans</button>
     </div>
   </div>
 </main>
@@ -1232,6 +1381,99 @@ footer strong { color: var(--muted-bright); }
 
     <button type="button" class="modal-submit" id="dep-submit-btn" onclick="submitDeposit()">Send Deposit Request</button>
     <div class="success-box" id="dep-success">✅ Request sent! Your deposit will be processed shortly.</div>
+  </div>
+</div>
+
+<!-- INSURANCE CLAIM MODAL -->
+<div class="modal-overlay" id="claimModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeClaim()">×</button>
+    <div class="modal-title">🛡️ File a Claim</div>
+    <div class="modal-sub">Submit your insurance claim. Our team will review your proof and process the payout within 48 hours.</div>
+
+    <div class="modal-field">
+      <label>Your Name</label>
+      <input type="text" id="claim-name" readonly />
+    </div>
+    <div class="modal-field">
+      <label>Card Number</label>
+      <input type="text" id="claim-card" readonly />
+    </div>
+    <div class="modal-field">
+      <label>Insurance Plan</label>
+      <input type="text" id="claim-plan" readonly />
+    </div>
+    <div class="modal-field">
+      <label>Claim Amount (ECO $)</label>
+      <input type="number" id="claim-amount" placeholder="e.g. 2000" min="1" />
+    </div>
+    <div class="modal-field">
+      <label>What happened?</label>
+      <input type="text" id="claim-reason" placeholder="e.g. Got robbed at the gas station..." />
+    </div>
+
+    <input type="file" id="claim-proof" accept="image/*" style="display:none" />
+    <div class="modal-field">
+      <label>📸 Proof of Incident <span style="color:#ff4d6d">*Required</span></label>
+      <div class="upload-box" id="claimUploadBox">
+        <div class="upload-icon">📷</div>
+        <div class="upload-text">Click to upload screenshot</div>
+        <div class="upload-sub">Must show the incident clearly</div>
+      </div>
+      <div class="upload-preview-wrap" id="claimPreviewWrap" style="display:none">
+        <img id="claimPreview" src="" alt="Proof" />
+        <button type="button" class="remove-img-btn" onclick="removeClaimImage()">✕ Remove</button>
+      </div>
+    </div>
+
+    <div class="modal-info-box">
+      ⏱️ Claims are processed within <strong>48 hours</strong>. Max <strong>1 claim per week</strong>. Payout cannot exceed your plan's max coverage.
+    </div>
+
+    <button type="button" class="modal-submit" id="claim-submit-btn" onclick="submitClaim()">Submit Claim</button>
+    <div class="success-box" id="claim-success">✅ Claim submitted! We'll review and process within 48 hours.</div>
+  </div>
+</div>
+
+<!-- INSURANCE PLANS MODAL -->
+<div class="modal-overlay" id="insurancePlansModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeInsuranceInfo()">×</button>
+    <div class="modal-title">📋 Insurance Plans</div>
+    <div class="modal-sub">Protect your ECO from in-game incidents. Pay weekly, claim when needed.</div>
+
+    <div class="plans-grid">
+      <div class="plan-card">
+        <div class="plan-name">Basic</div>
+        <div class="plan-price">$500 <span>ECO/week</span></div>
+        <div class="plan-coverage">Up to $2,000 coverage</div>
+        <div class="plan-perks">✓ Robbery protection<br>✓ 1 claim/week</div>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name">Standard</div>
+        <div class="plan-price">$1,000 <span>ECO/week</span></div>
+        <div class="plan-coverage">Up to $5,000 coverage</div>
+        <div class="plan-perks">✓ Robbery & vehicle<br>✓ 1 claim/week</div>
+      </div>
+      <div class="plan-card plan-featured">
+        <div class="plan-badge">Popular</div>
+        <div class="plan-name">Premium</div>
+        <div class="plan-price">$2,500 <span>ECO/week</span></div>
+        <div class="plan-coverage">Up to $15,000 coverage</div>
+        <div class="plan-perks">✓ Full protection<br>✓ Priority processing</div>
+      </div>
+      <div class="plan-card plan-vip">
+        <div class="plan-name">VIP</div>
+        <div class="plan-price">$5,000 <span>ECO/week</span></div>
+        <div class="plan-coverage">Up to $50,000 coverage</div>
+        <div class="plan-perks">✓ Full protection<br>✓ Same-day processing</div>
+      </div>
+    </div>
+
+    <div class="modal-info-box" style="margin-top:20px">
+      💬 To sign up for a plan, DM <strong>@brandon_xp123</strong> on Discord with your card number and chosen plan.
+    </div>
+    <button class="modal-close-btn" onclick="closeInsuranceInfo()">Got it, close</button>
   </div>
 </div>
 
@@ -1381,6 +1623,29 @@ footer strong { color: var(--muted-bright); }
       vcRsfr.style.fontSize = '13px';
     }
 
+    // Insurance
+    const insurancePlans = {
+      'basic':    { label: 'Basic',    coverage: 2000 },
+      'standard': { label: 'Standard', coverage: 5000 },
+      'premium':  { label: 'Premium',  coverage: 15000 },
+      'vip':      { label: 'VIP',      coverage: 50000 }
+    };
+
+    const insKey = p.insurance ? p.insurance.toLowerCase() : null;
+    const insData = insKey ? insurancePlans[insKey] : null;
+
+    if (insData) {
+      document.getElementById('insPlan').textContent = insData.label;
+      document.getElementById('insCoverage').textContent = '$' + insData.coverage.toLocaleString();
+      document.getElementById('insuranceCard').style.display = 'flex';
+      document.getElementById('noInsurance').style.display = 'none';
+      document.getElementById('claimBtn').style.display = 'block';
+    } else {
+      document.getElementById('insuranceCard').style.display = 'none';
+      document.getElementById('noInsurance').style.display = 'block';
+      document.getElementById('claimBtn').style.display = 'none';
+    }
+
     // Stats
     document.getElementById('statId').textContent = p.id;
     document.getElementById('statCompany').textContent = p.company || 'None';
@@ -1521,6 +1786,112 @@ footer strong { color: var(--muted-bright); }
   function closeWithdraw() {
     document.getElementById('withdrawModal').classList.remove('open');
   }
+
+  // ── INSURANCE CLAIM ──
+  let claimImageFile = null;
+
+  document.getElementById('claimUploadBox').addEventListener('click', function() {
+    document.getElementById('claim-proof').click();
+  });
+
+  document.getElementById('claim-proof').addEventListener('change', function() {
+    if (this.files && this.files[0]) {
+      claimImageFile = this.files[0];
+      const reader = new FileReader();
+      reader.onload = e => {
+        document.getElementById('claimPreview').src = e.target.result;
+        document.getElementById('claimUploadBox').style.display = 'none';
+        document.getElementById('claimPreviewWrap').style.display = 'block';
+      };
+      reader.readAsDataURL(claimImageFile);
+    }
+  });
+
+  function removeClaimImage() {
+    claimImageFile = null;
+    document.getElementById('claim-proof').value = '';
+    document.getElementById('claimUploadBox').style.display = 'block';
+    document.getElementById('claimPreviewWrap').style.display = 'none';
+    document.getElementById('claimPreview').src = '';
+  }
+
+  function openClaim() {
+    if (!currentPlayer) return;
+    const insKey = currentPlayer.insurance ? currentPlayer.insurance.toLowerCase() : '';
+    const plans = { basic: 'Basic — $2,000 coverage', standard: 'Standard — $5,000 coverage', premium: 'Premium — $15,000 coverage', vip: 'VIP — $50,000 coverage' };
+    document.getElementById('claim-name').value = currentPlayer.name;
+    document.getElementById('claim-card').value = currentPlayer.card_number;
+    document.getElementById('claim-plan').value = plans[insKey] || 'Unknown';
+    document.getElementById('claim-amount').value = '';
+    document.getElementById('claim-reason').value = '';
+    document.getElementById('claim-success').style.display = 'none';
+    document.getElementById('claim-submit-btn').disabled = false;
+    document.getElementById('claim-submit-btn').textContent = 'Submit Claim';
+    removeClaimImage();
+    document.getElementById('claimModal').classList.add('open');
+  }
+
+  function closeClaim() { document.getElementById('claimModal').classList.remove('open'); }
+
+  async function submitClaim() {
+    const amount = document.getElementById('claim-amount').value.trim();
+    const reason = document.getElementById('claim-reason').value.trim();
+
+    if (!amount || Number(amount) <= 0) { alert('Please enter a valid claim amount.'); return; }
+    if (!reason) { alert('Please describe what happened.'); return; }
+    if (!claimImageFile) { alert('Please upload proof of the incident.'); return; }
+
+    const btn = document.getElementById('claim-submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    const insKey = currentPlayer.insurance ? currentPlayer.insurance.toLowerCase() : '';
+    const maxCoverage = { basic: 2000, standard: 5000, premium: 15000, vip: 50000 }[insKey] || 0;
+
+    const formData = new FormData();
+    const embed = {
+      embeds: [{
+        title: '🛡️ Insurance Claim Filed',
+        color: 0x3d6fff,
+        fields: [
+          { name: '👤 Player', value: currentPlayer.name, inline: true },
+          { name: '🪪 Player ID', value: String(currentPlayer.id), inline: true },
+          { name: '💳 Card Number', value: currentPlayer.card_number, inline: false },
+          { name: '📋 Plan', value: currentPlayer.insurance || '—', inline: true },
+          { name: '🔒 Max Coverage', value: '$' + maxCoverage.toLocaleString() + ' ECO', inline: true },
+          { name: '💰 Claim Amount', value: '**$' + Number(amount).toLocaleString() + ' ECO**', inline: true },
+          { name: '📝 Incident', value: reason, inline: false },
+          { name: '⚠️ Action Required', value: 'Verify screenshot, approve/deny claim and update `players.json`', inline: false },
+        ],
+        image: { url: 'attachment://proof.png' },
+        footer: { text: 'RSFR Bank Insurance · 48hr processing · 1 claim/week' },
+        timestamp: new Date().toISOString()
+      }],
+      username: 'RSFR Insurance',
+      content: '📋 **New insurance claim!** Please verify the incident screenshot below.'
+    };
+
+    formData.append('payload_json', JSON.stringify(embed));
+    formData.append('files[0]', claimImageFile, 'proof.png');
+
+    try {
+      const res = await fetch(DISCORD_WEBHOOK, { method: 'POST', body: formData });
+      if (res.ok) {
+        document.getElementById('claim-success').style.display = 'block';
+        btn.textContent = 'Claim Submitted ✓';
+      } else { throw new Error('Failed: ' + res.status); }
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Submit Claim';
+      alert('Failed to submit. Error: ' + err.message);
+    }
+  }
+
+  function openInsuranceInfo() { document.getElementById('insurancePlansModal').classList.add('open'); }
+  function closeInsuranceInfo() { document.getElementById('insurancePlansModal').classList.remove('open'); }
+
+  document.getElementById('claimModal').addEventListener('click', function(e) { if (e.target === this) closeClaim(); });
+  document.getElementById('insurancePlansModal').addEventListener('click', function(e) { if (e.target === this) closeInsuranceInfo(); });
 
   // Close modals on overlay click
   document.getElementById('depositModal').addEventListener('click', function(e) {
