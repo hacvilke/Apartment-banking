@@ -11,7 +11,7 @@
       "id": "12345",
       "card_number": "1234-2892-2929-1211",
       "amount": 25000,
-      "company": "starblocks"
+      "company": "starblocks",
       "role": "vip"
     },
     {
@@ -36,7 +36,7 @@
       "company": "RSFR OWNER",
       "role": "owner"
     },
-     {
+    {
       "name": "Batman MrbladeRX!",
       "id": "1432",
       "card_number": "1736-1932-1832-0000",
