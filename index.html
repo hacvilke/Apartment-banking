@@ -1214,7 +1214,10 @@ footer strong { color: var(--muted-bright); }
       <span class="logo-sub">Apartment Division</span>
     </div>
   </div>
-  <div class="header-badge">System Online</div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="rules.html" style="font-size:12px;font-weight:700;color:var(--gold-light);text-decoration:none;letter-spacing:0.5px;padding:6px 14px;border:1px solid rgba(201,168,76,0.25);border-radius:8px;transition:all 0.2s" onmouseover="this.style.borderColor='rgba(201,168,76,0.5)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.25)'">📄 Insurance Rules</a>
+    <div class="header-badge">System Online</div>
+  </div>
 </header>
 
 <main>
@@ -1328,6 +1331,7 @@ footer strong { color: var(--muted-bright); }
       <button class="action-btn btn-claim" id="claimBtn" onclick="openClaim()" style="display:none">🛡️ &nbsp;File Insurance Claim</button>
       <button class="action-btn btn-insurance-info" onclick="openInsuranceInfo()">📋 &nbsp;Insurance Plans</button>
     </div>
+    <a href="rules.html" style="display:block;text-align:center;margin-top:14px;font-size:12px;font-weight:700;color:var(--muted-bright);text-decoration:none;letter-spacing:0.5px;transition:color 0.2s" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='var(--muted-bright)'">📄 Read Insurance Rules & Policy →</a>
   </div>
 </main>
 
@@ -1473,6 +1477,7 @@ footer strong { color: var(--muted-bright); }
     <div class="modal-info-box" style="margin-top:20px">
       💬 To sign up for a plan, DM <strong>@brandon_xp123</strong> on Discord with your card number and chosen plan.
     </div>
+    <a href="rules.html" style="display:block;text-align:center;margin-bottom:14px;font-size:13px;font-weight:700;color:var(--gold-light);text-decoration:none;letter-spacing:0.5px;">📄 Read Full Insurance Rules & Policy →</a>
     <button class="modal-close-btn" onclick="closeInsuranceInfo()">Got it, close</button>
   </div>
 </div>
