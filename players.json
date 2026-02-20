@@ -11,7 +11,8 @@
       "id": "12345",
       "card_number": "1234-2892-2929-1211",
       "amount": 25000,
-      "company": "RW Bank"
+      "company": "starblocks"
+      "role": "vip"
     },
     {
       "name": "GhostygamerXTRM",
